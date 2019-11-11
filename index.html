@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Mug of War</title>
+	<style>
+		* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+		}
+
+		body{
+				height: 100vh;
+				width: 100vw;
+		}
+
+		h1 { 
+				padding: 2%;
+		}
+
+		section {
+				display: flex;
+				flex-direction: row;
+		}
+
+		h2 {
+				padding-bottom: 5%;
+		}
+
+		h3 {
+				padding: 5%;
+		}
+
+		#plug {
+			height: 200px;
+			width: 10vw;
+			position: fixed;
+			bottom: 0;
+			left: 45%;
+			transform: rotate(0deg);
+			z-index: 1;
+		}
+
+		#wrapper {
+			width: 100%;
+			position: relative;
+		}
+
+		.bum{
+			bottom: 0px;
+			position: fixed;
+		}
+
+		#right-bum {
+			transform: rotateY(180deg);
+			right: 0;
+			
+		}
+
+	</style>
+</head>
+<body>
+	<header>    
+		<h1>Mug of war!</h1>
+	</header>
+	<main>
+			<h2>Instructions:</h2>
+			<p>Player one is responsible for mashing the 'a' key and player two is responsible for mashing the '#' key until one player creates a clear lead. </p>
+		<section>
+			<h3 id="score1">Player one wins:</h3>
+			<h3 id="score2">Player two wins:</h3>
+		</section>
+		<div id="wrapper">
+			<img class="bum" id="left-bum" src="bum.png" alt="left-bum">aaa
+			<img id="plug" src="plug.png" alt="lord-plug">
+			<img class="bum" id="right-bum" src="bum.png" alt="right-bum">
+		</div>	
+			
+	</main>
+	<script>
+	let left = 45;
+	let angle = 0;
+	let oneWin = 0;
+	let twoWin = 0;
+	let win = false;
+
+	function reset () { 
+		left = 45;
+		angle = 0
+		win = false;
+		document.getElementById("plug").style.left = left + "%";
+		document.getElementById("plug").style.transform = `rotate(${angle}deg)`;
+	};
+
+
+	function checkWin () {
+	if (left < 10) {
+		win = true;
+		oneWin++;
+		alert("You are a hero")
+	} else if (left > 80) {
+		win = true;
+		twoWin++;
+		alert("well done mate")
+	}
+	if (win) {
+		document.getElementById("score1").innerText = `Player one wins: ${oneWin}`;
+		document.getElementById("score2").innerText = `Player two wins: ${twoWin}`;
+		reset();
+	}
+	}
+
+	function move(event) {
+		if (event.keyCode === 65) {
+				left -= 5; 
+				angle -=10;
+			}
+		if (event.keyCode === 222) {
+			left += 5;
+			angle += 10;
+			}
+			console.log(angle)
+		document.getElementById("plug").style.left = left + "%";
+		document.getElementById("plug").style.transform = `rotate(${angle}deg)`;
+		checkWin();
+	}
+
+	document.addEventListener("keyup", move);
+	
+	</script>
+</body>
+</html>
